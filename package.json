@@ -1,0 +1,20 @@
+{
+  "name": "eventvuel",
+  "license": "ISC",
+  "engines": {
+    "node": "8.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PaulKujawa/eventvuel-server.git"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "apollo-datasource-rest": "^0.1.5",
+    "apollo-server": "^2.1.0",
+    "graphql": "^0.13.2",
+    "graphql-tag": "^2.10.0"
+  }
+}

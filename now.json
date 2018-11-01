@@ -1,0 +1,9 @@
+{
+    "name": "eventvuel-server",
+    "alias": "eventvuel-server",
+    "type": "npm",
+    "env": {
+        "NODE_ENV": "production",
+        "TICKETMASTER_API": "@eventvuel-ticketmaster-token"
+    }
+}
