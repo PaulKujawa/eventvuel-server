@@ -9,10 +9,10 @@ class TicketmasterApi extends RESTDataSource {
       request.params.set('apikey', this.context.token);
     }
   
-    async getMostRelevantEvents(limit = 10) {
-      const data = await this.get('events.json');
+    async getMostRelevantEvents(city) {
+      const data = await this.get('events.json', { city });
   
-      return data._embedded.events;
+      return data._embedded && data._embedded.events;
     }
 }
 
