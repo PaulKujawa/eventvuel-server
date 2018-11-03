@@ -1,13 +1,11 @@
 const resolvers = {
     Query: {
-      mostRelevantEvents: async (_src, _args, { dataSources }) => {
-        return dataSources.ticketmasterApi.getMostRelevantEvents();
+      mostRelevantEvents: async (_src, { city }, { dataSources }) => {
+        return await dataSources.ticketmasterApi.getMostRelevantEvents(city) || [];
       },
     },
     Event: {
-      image: (event) => {
-        return event.images.find((image) => image.ratio === '16_9' && image.width === 640);
-      },
+      images: (event) => event.images.filter((image) => image.ratio === '16_9'),
     },
 };
 
