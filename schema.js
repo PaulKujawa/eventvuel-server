@@ -2,7 +2,12 @@ const { gql } = require('apollo-server');
 
 const typeDefs = gql`
   type Query {
-    mostRelevantEvents(city: String!): [Event!]!
+    eventsPage(page: Int!, city: String!): EventsPage!
+  }
+
+  type EventsPage {
+    events: [Event!]!
+    hasMore: Boolean!
   }
 
   type Event {

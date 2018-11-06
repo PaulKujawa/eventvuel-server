@@ -1,19 +1,28 @@
 const { RESTDataSource } = require('apollo-datasource-rest');
 
+const TMmaxItems = 1000;
+const pageSize = 20;
+const pageLimit = Math.floor((TMmaxItems - 1) / pageSize);
+
 class TicketmasterApi extends RESTDataSource {
-    constructor() {
+  constructor() {
       super();
       this.baseURL = 'https://app.ticketmaster.com/discovery/v2/';
-    }
-    willSendRequest(request) {
-      request.params.set('apikey', this.context.token);
-    }
-  
-    async getMostRelevantEvents(city) {
-      const data = await this.get('events.json', { city });
-  
-      return data._embedded && data._embedded.events;
-    }
+  }
+
+  willSendRequest(request) {
+    request.params.set('apikey', this.context.token);
+  }
+
+  async getEventsPage(page, city) {
+    page = Math.min(page, pageLimit);
+    const data = await this.get('events.json', { page, city });
+
+    return data._embedded && {
+      events: data._embedded.events,
+      hasMore: Boolean(data._links.next),
+    };
+  }
 }
 
 module.exports.TicketmasterApi = TicketmasterApi;
