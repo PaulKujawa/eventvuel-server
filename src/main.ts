@@ -6,13 +6,13 @@ import resolvers from './resolvers';
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    formatError: (error) => console.log(error),
+    formatError: (error: string) => console.log(error),
     dataSources: () => ({
       ticketmasterApi: new TicketmasterApi(),
     }),
-    context: () => ({
+    context: {
       token: process.env.TICKETMASTER_API,
-    }),
+    },
 });
 
 server.listen({ port: 4000 }).then(({ url }) => {
