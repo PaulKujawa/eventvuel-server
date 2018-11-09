@@ -1,6 +1,6 @@
-const { gql } = require('apollo-server');
+import { gql } from 'apollo-server';
 
-const typeDefs = gql`
+export default gql`
   type Query {
     eventsPage(page: Int!, city: String!): EventsPage!
   }
@@ -45,5 +45,3 @@ const typeDefs = gql`
     localTime: String
   }
 `;
-
-module.exports.typeDefs = typeDefs;

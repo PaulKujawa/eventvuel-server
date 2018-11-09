@@ -1,10 +1,10 @@
-const { RESTDataSource } = require('apollo-datasource-rest');
+import { RESTDataSource } from 'apollo-datasource-rest';
 
 const TMmaxItems = 1000;
 const pageSize = 20;
 const pageLimit = Math.floor((TMmaxItems - 1) / pageSize);
 
-class TicketmasterApi extends RESTDataSource {
+export default class TicketmasterApi extends RESTDataSource {
   constructor() {
       super();
       this.baseURL = 'https://app.ticketmaster.com/discovery/v2/';
@@ -24,5 +24,3 @@ class TicketmasterApi extends RESTDataSource {
     };
   }
 }
-
-module.exports.TicketmasterApi = TicketmasterApi;
