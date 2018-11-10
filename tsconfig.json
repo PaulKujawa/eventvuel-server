@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+        "target": "ES6",
+        "module": "commonjs",
+        "strict": true,
+        "importHelpers": true,
+        "moduleResolution": "node",
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "baseUrl": ".",
+        "noEmit": true,
+        "lib": [
+            "es6"
+        ],
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

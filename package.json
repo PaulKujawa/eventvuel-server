@@ -9,15 +9,22 @@
     "node": "8"
   },
   "scripts": {
-    "start": "node -r dotenv/config index.js",
+    "start": "nodemon --ext js,ts -r dotenv/config index.js",
     "now-start": "node index.js",
     "deploy": "now --public"
   },
   "dependencies": {
+    "@types/node": "^10.12.3",
     "apollo-datasource-rest": "^0.1.5",
     "apollo-server": "^2.1.0",
     "dotenv": "^6.1.0",
     "graphql": "^0.13.2",
-    "graphql-tag": "^2.10.0"
+    "graphql-tag": "^2.10.0",
+    "ts-node": "^7.0.1",
+    "tslib": "^1.9.3",
+    "typescript": "^3.1.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.6"
   }
 }
