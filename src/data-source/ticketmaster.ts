@@ -1,9 +1,5 @@
 import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
-
-export interface EventsPage {
-  events: Object[];
-  hasMore: boolean;
-};
+import { EventsPage } from 'src/schema';
 
 export default class TicketmasterApi extends RESTDataSource {
   private readonly TMmaxItems = 1000;

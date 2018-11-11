@@ -1,18 +1,20 @@
-import { IResolvers } from "graphql-tools";
-import TicketmasterApi, { EventsPage } from "./data-source/ticketmaster";
+import { IResolverObject } from "graphql-tools";
+import { EventsPage, Query, ResolverContext, Event } from './schema';
 
-const resolvers: IResolvers = {
-  Query: {
-    eventsPage: async (_src: any, { page, city }: any, { dataSources }: any): Promise<EventsPage> => {
-      return await (dataSources.ticketmasterApi as TicketmasterApi).getEventsPage(page, city) || {
-          events: [],
-          hasMore: false,
-      };
-    },
-  },
-  Event: {
-    images: (event: any) => event.images.filter((image: any) => image.ratio === '16_9'),
+const Query: IResolverObject<undefined, ResolverContext> = {
+  eventsPage: async (_src, { page, city }, { dataSources }): Promise<EventsPage> => {
+    return await dataSources.ticketmasterApi.getEventsPage(page, city) || {
+      events: [],
+      hasMore: false,
+    };
   },
 };
 
-export default resolvers;
+const Event: IResolverObject<Event, ResolverContext> = {
+  images: (event) => event.images.filter((image) => image.ratio === '16_9'),
+}
+
+export default {
+  Query,
+  Event,
+};

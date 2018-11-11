@@ -1,4 +1,5 @@
 import { gql } from 'apollo-server';
+import TicketmasterApi from './data-source/ticketmaster';
 
 export default gql`
   type Query {
@@ -45,3 +46,37 @@ export default gql`
     localTime: String
   }
 `;
+
+export interface ResolverContext {
+  dataSources: {
+    ticketmasterApi: TicketmasterApi;
+  }
+}
+
+export interface Query {
+  eventsPage: EventsPage;
+}
+
+export interface EventsPage {
+  events: Array<Event>;
+  hasMore: Boolean;
+};
+
+export interface Event {
+  id: number;
+  name: string;
+  dates: Array<{
+    start: {
+      localDate: string;
+      localTime: string;
+    }
+    timezone: string;
+    spanMultipleDays: Boolean;
+  }>;
+  images: Array<{
+    ratio: string;
+    url: string;
+    width: number;
+    height: number;
+  }>;
+};
