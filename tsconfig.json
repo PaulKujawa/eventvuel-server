@@ -12,7 +12,10 @@
         "lib": [
             "es6",
             "esnext.asynciterable",
-        ]
+        ],
+        "paths": {
+            "@/*": ["src/*"]
+        },
     },
     "exclude": [
         "node_modules"

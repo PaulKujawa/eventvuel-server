@@ -2,6 +2,7 @@ import { Configuration } from 'webpack';
 const Dotenv = require('dotenv-webpack');
 const path = require('path');
 const nodeExternals = require('webpack-node-externals');
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 export const webpackConfig = () => {
     const config: Configuration = {
@@ -35,7 +36,10 @@ export const webpackConfig = () => {
         ],
         resolve: {
             extensions: ['.ts', '.mjs', '.js'],
-        }
+            plugins: [
+                new TsconfigPathsPlugin({configFile: "./tsconfig.json"}),
+            ],
+        },
     };
 
     return config;

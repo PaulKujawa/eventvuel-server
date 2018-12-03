@@ -1,5 +1,5 @@
 import { IResolvers } from 'graphql-tools';
-import { ResolverContext } from '../main';
+import { ResolverContext } from '@/main';
 
 const resolvers: IResolvers<any, ResolverContext> = {
   Attraction: {

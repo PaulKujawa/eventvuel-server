@@ -1,7 +1,7 @@
 import { ApolloServer, ServerInfo } from 'apollo-server';
-import TicketmasterApi from './data-source/ticketmaster';
-import typeDefs from './schema';
-import resolvers from './resolver';
+import TicketmasterApi from '@/data-source/ticketmaster';
+import typeDefs from '@/schema';
+import resolvers from '@/resolver';
 
 export interface ResolverContext {
   dataSources: {
