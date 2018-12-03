@@ -21,7 +21,7 @@ export const webpackConfig = () => {
                     loader: 'ts-loader',
                 },
                 {
-                    test: /\.(graphql|gql)$/,
+                    test: /\.gql$/,
                     exclude: /node_modules/,
                     loader: 'graphql-tag/loader'
                 },
