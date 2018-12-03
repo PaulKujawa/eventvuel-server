@@ -1,26 +1,22 @@
-import { IResolverObject } from "graphql-tools";
-import { ResolverContext } from 'src/main';
+import { IResolvers } from 'graphql-tools';
+import { ResolverContext } from '../main';
 
-const Attraction: IResolverObject<undefined, ResolverContext> = {
-  upcomingEvents: (attraction: any) => attraction.upcomingEvents.total || 0,
-};
-
-const ExternalLink: IResolverObject<undefined, ResolverContext> = {
-  url: (externalLink: any) => externalLink[0],
-};
-
-const Query: IResolverObject<undefined, ResolverContext> = {
-  attractionsPage: async (_src, { page, city }, { dataSources }): Promise<any> => {
-    return await dataSources.ticketmasterApi.getAttractionsPage(page, city) || {
-      attractions: [],
-      hasMore: false,
-    };
+const resolvers: IResolvers<any, ResolverContext> = {
+  Attraction: {
+    upcomingEvents: (attraction) => attraction.upcomingEvents.total || 0,
   },
-  attraction: (_src, { id }, { dataSources }): Promise<any> => dataSources.ticketmasterApi.getAttraction(id),
+  ExternalLink: {
+    url: (externalLink) => externalLink[0],
+  },
+  Query: {
+    attraction: (_src, { id }, { dataSources }) => dataSources.ticketmasterApi.getAttraction(id),
+    attractionsPage: async (_src, { page, city }, { dataSources }) => {
+      return await dataSources.ticketmasterApi.getAttractionsPage(page, city) || {
+        attractions: [],
+        hasMore: false,
+      };
+    },
+  },
 };
 
-export default {
-  Attraction,
-  ExternalLink,
-  Query,
-};
+export default resolvers;
