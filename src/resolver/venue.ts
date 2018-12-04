@@ -1,21 +1,22 @@
-import { IResolverObject } from "graphql-tools";
-import { ResolverContext } from 'src/main';
+import { IResolvers } from 'graphql-tools';
+import { ResolverContext } from '@/main';
 
-const Query: IResolverObject<undefined, ResolverContext> = {
-  venuesPage: async (_src, { page, city }, { dataSources }): Promise<any> => {
-    return await dataSources.ticketmasterApi.getVenuesPage(page, city) || {
-      venues: [],
-      hasMore: false,
-    };
+const resolvers: IResolvers<any, ResolverContext> = {
+  Query: {
+    venue: (_src, { id }, { dataSources }) => dataSources.ticketmasterApi.getVenue(id),
+    venuesPage: async (_src, { page, city }, { dataSources }) => {
+      return await dataSources.ticketmasterApi.getVenuesPage(page, city) || {
+        venues: [],
+        hasMore: false,
+      };
+    },
   },
-  venue: (_src, { id }, { dataSources }): Promise<any> => dataSources.ticketmasterApi.getVenue(id),
+  Venue: {
+    upcomingEvents: (attraction) => attraction.upcomingEvents.total || 0,
+  },
+  VenueInterface: {
+    __resolveType: (source) => source.state ? 'VenueDetail' : 'Venue',
+  },
 };
 
-const Venue: IResolverObject<undefined, ResolverContext> = {
-  upcomingEvents: (attraction: any) => attraction.upcomingEvents.total || 0,
-};
-
-export default {
-  Query,
-  Venue,
-};
+export default resolvers;

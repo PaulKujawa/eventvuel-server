@@ -10,4 +10,4 @@
 |Now                |Deployment|
 |Apollo Server      |GraphQl Server based on Express|
 |Typescript         |JS static typing|
-|Nodemon            |file watcher|
+|Webpack            |Bundler|
