@@ -14,6 +14,9 @@ const resolvers: IResolvers<any, ResolverContext> = {
   Venue: {
     upcomingEvents: (attraction) => attraction.upcomingEvents.total || 0,
   },
+  VenueInterface: {
+    __resolveType: (source) => source.state ? 'VenueDetail' : 'Venue',
+  },
 };
 
 export default resolvers;
