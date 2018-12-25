@@ -13,8 +13,8 @@ const resolvers: IResolvers<any, ResolverContext> = {
   },
   Query: {
     event: (_src, { id }, { dataSources }) => dataSources.ticketmasterApi.getEvent(id),
-    eventsPage: async (_src, { page, city }, { dataSources }) => {
-      return await dataSources.ticketmasterApi.getEventsPage(page, city) || {
+    eventsPage: async (_src, { page, city, classification }, { dataSources }) => {
+      return await dataSources.ticketmasterApi.getEventsPage(page, city, classification) || {
         events: [],
         hasMore: false,
       };

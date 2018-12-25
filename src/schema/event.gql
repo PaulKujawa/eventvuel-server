@@ -1,5 +1,5 @@
 extend type Query {
-  eventsPage(page: Int!, city: String!): EventsPage!
+  eventsPage(page: Int!, city: String!, classification: ID): EventsPage!
   event(id: ID!): Event
 }
 
