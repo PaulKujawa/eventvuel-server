@@ -14,18 +14,8 @@ export default class TicketmasterApi extends RESTDataSource {
     request.params.set('apikey', this.context.token);
   }
 
-  // public async getEventsPage(page: number, city: string): Promise<EventsPage | undefined> {
-  //   page = Math.min(page, this.pageLimit);
-  //   const data = await this.get('events.json', { page, city });
-
-  //   return data._embedded && {
-  //     events: data._embedded.events,
-  //     hasMore: Boolean(data._links.next),
-  //   };
-  // }
-
   public async getAttractionsPage(page: number, city: string): Promise<any | undefined> {
-    const data = await this.getPageable('attractions', page, city);
+    const data = await this.getPageable({ endpoint: 'attractions', page, city });
 
     return data._embedded && {
       attractions: data._embedded.attractions,
@@ -37,8 +27,14 @@ export default class TicketmasterApi extends RESTDataSource {
     return this.get(`attractions/${id}.json`);
   }
   
-  public async getEventsPage(page: number, city: string): Promise<any | undefined> {
-    const data = await this.getPageable('events', page, city);
+  public async getEventsPage(page: number, city: string, classification?: string): Promise<any | undefined> {
+    const config: any = { endpoint: 'events', page, city };
+
+    if (classification) {
+      config.classificationId = classification;
+    }
+    
+    const data = await this.getPageable(config);
 
     return data._embedded && {
       events: data._embedded.events,
@@ -51,7 +47,7 @@ export default class TicketmasterApi extends RESTDataSource {
   }
 
   public async getVenuesPage(page: number, city: string): Promise<any | undefined> {
-    const data = await this.getPageable('venues', page, city);
+    const data = await this.getPageable({ endpoint: 'venues', page, city });
 
     return data._embedded && {
       venues: data._embedded.venues,
@@ -63,10 +59,13 @@ export default class TicketmasterApi extends RESTDataSource {
     return this.get(`venues/${id}.json`);
   }
 
-  private getPageable(resource: String, page: number, city: string): Promise<any> {
-    return this.get(`${resource}.json`, {
+  private getPageable(
+    { endpoint, page, ...queries }: any, // TODO type dat, meh
+  ): Promise<any> {
+    return this.get(`${endpoint}.json`, {
         page: Math.min(page, this.pageLimit),
-        city,
+        sort: 'date,asc',
+        ...queries,
     });
   }
 }
