@@ -5,6 +5,7 @@
         "strict": true,
         "importHelpers": true,
         "moduleResolution": "node",
+        "noEmit": true,
         "noUnusedLocals": true,
         "noUnusedParameters": true,
         "baseUrl": ".",

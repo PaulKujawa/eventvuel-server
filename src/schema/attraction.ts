@@ -1,3 +1,6 @@
+import gql from 'graphql-tag';
+
+export default gql`
 extend type Query {
   attractionsPage(page: Int!, city: String!): AttractionsPage!
   attraction(id: ID!): Attraction
@@ -33,3 +36,4 @@ type ExternalLinks {
   youtube: ExternalLink
   wiki: ExternalLink
 }
+`;

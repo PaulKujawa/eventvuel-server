@@ -1,3 +1,6 @@
+import gql from 'graphql-tag';
+
+export default gql`
 interface VenueInterface {
   id: ID!
   city: City!
@@ -74,3 +77,4 @@ type State {
   name: String!
   statusCode: String!
 }
+`;
