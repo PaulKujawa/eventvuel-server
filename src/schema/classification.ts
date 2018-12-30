@@ -1,3 +1,6 @@
+import gql from 'graphql-tag';
+
+export default gql`
 type Classification {
   family: Boolean!
   "Rock, Football, etc"
@@ -17,3 +20,4 @@ type ClassificationType {
   id: ID!
   name: String!
 }
+`;

@@ -23,6 +23,6 @@ const resolvers: IResolvers<any, ResolverContext> = {
   Sales: {
     presales: (sales) => sales.presales || [],
   },
-}
+};
 
 export default resolvers;

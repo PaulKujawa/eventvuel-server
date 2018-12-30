@@ -1,3 +1,6 @@
+import gql from 'graphql-tag';
+
+export default gql`
 extend type Query {
   eventsPage(page: Int!, city: String!, classification: ID): EventsPage!
   event(id: ID!): Event
@@ -60,3 +63,4 @@ enum EVENT_DATES_STATUS_CODE {
   onsale
   offsale
 }
+`;
