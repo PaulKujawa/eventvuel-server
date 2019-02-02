@@ -1,16 +1,10 @@
 import gql from "graphql-tag";
 
 export default gql`
-  extend type Query {
-    attractionsPage(page: Int!, city: String!): AttractionsPage!
-    attraction(id: ID!): Attraction
-  }
-
   interface AttractionInterface {
     id: ID!
     name: String!
     url: String!
-    rank: Int
   }
 
   type Attraction implements AttractionInterface {
@@ -22,7 +16,7 @@ export default gql`
 
   type AttractionDetail implements AttractionInterface {
     categories: Category!
-    eventCount: Number! # event_count
+    eventCount: Int!
     id: ID!
     images: Images
     name: String!

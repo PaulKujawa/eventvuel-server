@@ -1,6 +1,6 @@
 import attractionSchema from "@/schema/attraction";
 import eventSchema from "@/schema/event";
-import venueSchema from '@/schema/venue';
+import venueSchema from "@/schema/venue";
 import gql from "graphql-tag";
 
 const rootSchema = gql`
@@ -24,7 +24,7 @@ const rootSchema = gql`
     standard: Image!
   }
 
-  // ratio 3:4
+  # ratio 3:4
   type Image {
     height: Int!
     url: String!
@@ -32,9 +32,4 @@ const rootSchema = gql`
   }
 `;
 
-export default [
-  attractionSchema,
-  eventSchema,
-  rootSchema
-    venueSchema,
-];
+export default [attractionSchema, eventSchema, rootSchema, venueSchema];

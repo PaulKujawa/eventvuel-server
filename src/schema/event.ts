@@ -2,29 +2,29 @@ import gql from "graphql-tag";
 
 export default gql`
   extend type Query {
-    eventsPage(page: Int!, city: String!, classification: ID): EventsPage!
-    event(id: ID!): Event
+    # city: String!, classification: ID
+    eventsPage(start: Int): EventsPage!
   }
 
   type Event {
     id: ID!
-    attractions: [Attraction!]! # always return an array
-    currency: String! # "EUR"
-    categories: [Category!]! # always return an array
-    dayOfWeek: String # day_of_week
+    attractions: [Attraction!]!
+    currency: String!
+    categories: [Category!]!
+    dayOfWeek: String
     domain: String!
-    doorOpeningDate: Date; # door_opening_date
-    externalUurl: boolean! # TODO external_url
-    eventDate: Date # event_date
+    doorOpeningDate: Date
+    externalUrl: Boolean!
+    eventDate: Date
     images: Images!
-    localEventDate: Date # local_event_date
+    localEventDate: Date
     name: String!
-    onSaleDate: Date! # on_sale_date
-    offSaleDate: Date! # off_sale_date
-    priceRanges: PriceRanges! # price_ranges
+    onSaleDate: Date!
+    offSaleDate: Date!
+    priceRanges: PriceRanges!
     properties: Properties!
     url: String!
-    timezone: String # "Europe/Berlin"
+    timezone: String
     venue: Venue!
   }
 
@@ -34,8 +34,8 @@ export default gql`
   }
 
   type PriceRanges {
-    excludingTicketFees: TicketFee! # excluding_ticket_fees
-    includingTicketFees: TicketFee! # including_ticket_fees
+    excludingTicketFees: TicketFee!
+    includingTicketFees: TicketFee!
   }
 
   type Properties {

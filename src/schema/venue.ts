@@ -1,17 +1,12 @@
 import gql from "graphql-tag";
 
 export default gql`
-  extend type Query {
-    venuesPage(page: Int!, city: String!): VenuesPage!
-    venue(id: ID!): VenueDetail
-  }
-
   type Location {
     address: LocationAddress!
   }
 
   type LocationAddress {
-    postalCode: String! # postal_code
+    postalCode: String!
     city: String!
     country: String!
     long: Float!
@@ -37,7 +32,7 @@ export default gql`
     code: String!
     domain: String!
     location: Location!
-    name: String
+    name: String!
     url: String!
   }
 
