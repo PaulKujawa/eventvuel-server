@@ -14,13 +14,14 @@ export default class TicketmasterApi extends RESTDataSource {
 
   public async getEventList(
     cityIds: number[],
-    start: number = 0
+    start: number = 0,
+    sort: string = "eventdate"
   ): Promise<any> {
     const res = await this.get(`events`, {
       // domain: "germany", TODO needs to be a string and is not String(city.country)
       rows: 30,
       city_ids: cityIds,
-      sort_by: "popularity", // TODO get from query
+      sort_by: sort,
       start
     });
 
