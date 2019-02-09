@@ -3,7 +3,7 @@ import gql from "graphql-tag";
 export default gql`
   extend type Query {
     # city: String!, classification: ID
-    eventsPage(start: Int): EventsPage!
+    eventList(cityIds: [ID!]!, start: Int): EventList!
   }
 
   type Event {
@@ -16,7 +16,7 @@ export default gql`
     doorOpeningDate: Date
     externalUrl: Boolean!
     eventDate: Date
-    images: Images!
+    images: Images
     localEventDate: Date
     name: String!
     onSaleDate: Date!
@@ -28,7 +28,7 @@ export default gql`
     venue: Venue!
   }
 
-  type EventsPage {
+  type EventList {
     events: [Event!]!
     hasMore: Boolean!
   }
