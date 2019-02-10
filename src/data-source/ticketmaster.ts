@@ -32,4 +32,17 @@ export default class TicketmasterApi extends RESTDataSource {
       hasMore: start + Math.max(rows, this.TmMaxRows) < total
     };
   }
+
+  public async getSubCategories(categoryId: number): Promise<any[]> {
+    const res = await this.get("categories", {
+      category_id: categoryId,
+      subcategories: true
+    });
+
+    if (res.categories.length) {
+      return res.categories[0].subcategories;
+    }
+
+    return [];
+  }
 }

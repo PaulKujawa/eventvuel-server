@@ -1,4 +1,5 @@
 import attractionSchema from "@/schema/attraction";
+import categorySchema from "@/schema/category";
 import eventSchema from "@/schema/event";
 import venueSchema from "@/schema/venue";
 import gql from "graphql-tag";
@@ -6,12 +7,6 @@ import gql from "graphql-tag";
 const rootSchema = gql`
   type Query {
     _: Boolean
-  }
-
-  type Category {
-    id: ID!
-    name: String!
-    subcategories: [Category!]! # always return an array
   }
 
   type Date {
@@ -32,4 +27,10 @@ const rootSchema = gql`
   }
 `;
 
-export default [attractionSchema, eventSchema, rootSchema, venueSchema];
+export default [
+  attractionSchema,
+  categorySchema,
+  eventSchema,
+  rootSchema,
+  venueSchema
+];
