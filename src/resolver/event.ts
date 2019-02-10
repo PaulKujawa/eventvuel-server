@@ -1,28 +1,27 @@
-import { IResolvers } from 'graphql-tools';
-import { ResolverContext } from '@/main';
+import { IResolvers } from "graphql-tools";
+import { ResolverContext } from "@/main";
 
 const resolvers: IResolvers<any, ResolverContext> = {
-  Dates: {
-    status: (dates) => dates.status.code,
-  },
   Event: {
-    attractions: (event) => event._embedded.attractions,
-    images: (event) => event.images.filter((image: any) => image.ratio === '16_9'),
-    seatmap: (event) => event.seatmap && event.seatmap.staticUrl,
-    venues: (event) => event._embedded.venues,
+    attractions: event => event.attractions || [],
+    categories: event => event.categories || [],
+    dayOfWeek: event => event.day_of_week,
+    doorOpeningDate: event => event.door_opening_date,
+    externalUrl: event => event.external_url,
+    eventDate: event => event.event_date,
+    localEventDate: event => event.local_event_date,
+    onSaleDate: event => event.on_sale_date,
+    offSaleDate: event => event.off_sale_date,
+    priceRanges: event => event.price_ranges
   },
   Query: {
-    event: (_src, { id }, { dataSources }) => dataSources.ticketmasterApi.getEvent(id),
-    eventsPage: async (_src, { page, city, classification }, { dataSources }) => {
-      return await dataSources.ticketmasterApi.getEventsPage(page, city, classification) || {
-        events: [],
-        hasMore: false,
-      };
-    },
+    eventList: (_src, args: any, { dataSources }) =>
+      dataSources.ticketmasterApi.getEventList(args)
   },
-  Sales: {
-    presales: (sales) => sales.presales || [],
-  },
+  PriceRanges: {
+    excludingTicketFees: priceRanges => priceRanges.excluding_ticket_fees,
+    includingTicketFees: priceRanges => priceRanges.including_ticket_fees
+  }
 };
 
 export default resolvers;

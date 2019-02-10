@@ -1,71 +1,72 @@
-import { RESTDataSource, RequestOptions } from 'apollo-datasource-rest';
+import { RESTDataSource, RequestOptions } from "apollo-datasource-rest";
+import { rootCategories as tmRootCategories } from "@/data-source/TM-config";
+
+type getEventListArgs = {
+  categoryIds: string[];
+  cityIds: string[];
+  sort: string;
+  start: number;
+};
 
 export default class TicketmasterApi extends RESTDataSource {
-  private readonly TMmaxItems = 1000;
-  private readonly pageSize = 20;
-  private readonly pageLimit = Math.floor((this.TMmaxItems - 1) / this.pageSize);
+  private readonly TmMaxRows = 250;
 
   constructor() {
-      super();
-      this.baseURL = 'https://app.ticketmaster.com/discovery/v2/';
+    super();
+    this.baseURL = "https://app.ticketmaster.eu/mfxapi/v2/";
   }
 
   public willSendRequest(request: RequestOptions): void {
-    request.params.set('apikey', this.context.token);
+    request.params.set("apikey", this.context.token);
   }
 
-  public async getAttractionsPage(page: number, city: string): Promise<any | undefined> {
-    const data = await this.getPageable({ endpoint: 'attractions', page, city });
+  public async getEventList({
+    categoryIds,
+    cityIds,
+    sort = "eventdate",
+    start = 0
+  }: getEventListArgs): Promise<any> {
+    const categories = [];
+    const subcategories = [];
 
-    return data._embedded && {
-      attractions: data._embedded.attractions,
-      hasMore: Boolean(data._links.next),
-    };
-  }
-  
-  public getAttraction(id: number): Promise<any | undefined> {
-    return this.get(`attractions/${id}.json`);
-  }
-  
-  public async getEventsPage(page: number, city: string, classification?: string): Promise<any | undefined> {
-    const config: any = { endpoint: 'events', page, city };
-
-    if (classification) {
-      config.classificationId = classification;
+    for (const categoryId of categoryIds) {
+      tmRootCategories.includes(+categoryId)
+        ? categories.push(categoryId)
+        : subcategories.push(categoryId);
     }
-    
-    const data = await this.getPageable(config);
 
-    return data._embedded && {
-      events: data._embedded.events,
-      hasMore: Boolean(data._links.next),
+    const res = await this.get(
+      `events`,
+      Object.assign(
+        {
+          city_ids: cityIds,
+          sort_by: sort,
+          start,
+          rows: 30
+        },
+        categories.length ? { category_ids: categories } : null,
+        subcategories.length ? { subcategory_ids: subcategories } : null
+      )
+    );
+
+    const { rows, total } = res.pagination;
+
+    return {
+      events: res.events,
+      hasMore: start + Math.max(rows, this.TmMaxRows) < total
     };
   }
-  
-  public getEvent(id: number): Promise<any | undefined> {
-    return this.get(`events/${id}.json`);
-  }
 
-  public async getVenuesPage(page: number, city: string): Promise<any | undefined> {
-    const data = await this.getPageable({ endpoint: 'venues', page, city });
-
-    return data._embedded && {
-      venues: data._embedded.venues,
-      hasMore: Boolean(data._links.next),
-    };
-  }
-  
-  public getVenue(id: number): Promise<any | undefined> {
-    return this.get(`venues/${id}.json`);
-  }
-
-  private getPageable(
-    { endpoint, page, ...queries }: any, // TODO type dat, meh
-  ): Promise<any> {
-    return this.get(`${endpoint}.json`, {
-        page: Math.min(page, this.pageLimit),
-        sort: 'date,asc',
-        ...queries,
+  public async getSubCategories(categoryId: number): Promise<any[]> {
+    const res = await this.get("categories", {
+      category_id: categoryId,
+      subcategories: true
     });
+
+    if (res.categories.length) {
+      return res.categories[0].subcategories;
+    }
+
+    return [];
   }
 }

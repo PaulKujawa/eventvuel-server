@@ -1,66 +1,57 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
 export default gql`
-extend type Query {
-  eventsPage(page: Int!, city: String!, classification: ID): EventsPage!
-  event(id: ID!): Event
-}
+  extend type Query {
+    eventList(
+      categoryIds: [ID!]!
+      cityIds: [ID!]!
+      sort: String
+      start: Int
+    ): EventList!
+  }
 
-type EventsPage {
-  events: [Event!]!
-  hasMore: Boolean!
-}
+  type Event {
+    id: ID!
+    attractions: [Attraction!]!
+    currency: String!
+    categories: [Category!]!
+    dayOfWeek: String
+    domain: String!
+    doorOpeningDate: Date
+    externalUrl: Boolean!
+    eventDate: Date
+    images: Images
+    localEventDate: Date
+    name: String!
+    onSaleDate: Date!
+    offSaleDate: Date!
+    priceRanges: PriceRanges!
+    properties: Properties!
+    url: String!
+    timezone: String
+    venue: Venue!
+  }
 
-type Event {
-  id: ID!
-  attractions: [Attraction!]!
-  classifications: [Classification!]!
-  dates: Dates!
-  images: [Image!]!
-  name: String!
-  sales: Sales!
-  seatmap: String
-  url: String!
-  venues: [Venue!]!
-}
+  type EventList {
+    events: [Event!]!
+    hasMore: Boolean!
+  }
 
-type Dates {
-  start: Start!
-  timezone: String!
-  spanMultipleDays: Boolean!
-  status: EVENT_DATES_STATUS_CODE!
-}
+  type PriceRanges {
+    excludingTicketFees: TicketFee!
+    includingTicketFees: TicketFee!
+  }
 
-type PreSales {
-  description: String
-  endDateTime: String!
-  name: String!
-  startDateTime: String!
-}
+  type Properties {
+    cancelled: Boolean!
+    package: Boolean!
+    rescheduled: Boolean!
+    seats_available: Boolean!
+    sold_out: Boolean!
+  }
 
-type Public {
-  startDateTime: String!
-  startTBD: Boolean!
-  endDateTime: String!
-}
-
-type Sales {
-  public: Public!
-  presales: [PreSales!]!
-}
-
-type Start {
-  dateTBA: Boolean!
-  dateTBD: Boolean!
-  dateTime: String
-  localDate: String!
-  localTime: String
-  noSpecificTime: Boolean!
-  timeTBA: Boolean!
-}
-
-enum EVENT_DATES_STATUS_CODE {
-  onsale
-  offsale
-}
+  type TicketFee {
+    min: Int!
+    max: Int!
+  }
 `;
