@@ -2,8 +2,12 @@ import gql from "graphql-tag";
 
 export default gql`
   extend type Query {
-    # city: String!, classification: ID
-    eventList(cityIds: [ID!]!, start: Int, sort: String): EventList!
+    eventList(
+      categoryIds: [ID!]!
+      cityIds: [ID!]!
+      sort: String
+      start: Int
+    ): EventList!
   }
 
   type Event {

@@ -12,17 +12,18 @@ export default class TicketmasterApi extends RESTDataSource {
     request.params.set("apikey", this.context.token);
   }
 
-  public async getEventList(
-    cityIds: number[],
-    start: number = 0,
-    sort: string = "eventdate"
-  ): Promise<any> {
+  public async getEventList({
+    categoryIds,
+    cityIds,
+    start = 0,
+    sort = "eventdate"
+  }: any): Promise<any> {
     const res = await this.get(`events`, {
-      // domain: "germany", TODO needs to be a string and is not String(city.country)
-      rows: 30,
+      category_ids: categoryIds, // TODO discern between cats and subCats
       city_ids: cityIds,
       sort_by: sort,
-      start
+      start,
+      rows: 30
     });
 
     const { rows, total } = res.pagination;

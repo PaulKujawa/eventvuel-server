@@ -15,8 +15,8 @@ const resolvers: IResolvers<any, ResolverContext> = {
     priceRanges: event => event.price_ranges
   },
   Query: {
-    eventList: (_src, { cityIds, start, sort }, { dataSources }) =>
-      dataSources.ticketmasterApi.getEventList(cityIds, start, sort)
+    eventList: (_src, args, { dataSources }) =>
+      dataSources.ticketmasterApi.getEventList(args)
   },
   PriceRanges: {
     excludingTicketFees: priceRanges => priceRanges.excluding_ticket_fees,
