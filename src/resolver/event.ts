@@ -15,7 +15,7 @@ const resolvers: IResolvers<any, ResolverContext> = {
     priceRanges: event => event.price_ranges
   },
   Query: {
-    eventList: (_src, args, { dataSources }) =>
+    eventList: (_src, args: any, { dataSources }) =>
       dataSources.ticketmasterApi.getEventList(args)
   },
   PriceRanges: {
