@@ -1,7 +1,7 @@
-import attractionResolvers from "@/resolver/attraction";
-import categoryResolvers from "@/resolver/category";
-import eventResolvers from "@/resolver/event";
-import venueResolvers from "@/resolver/venue";
+import attractionResolvers from "./attraction";
+import categoryResolvers from "./category";
+import eventResolvers from "./event";
+import venueResolvers from "./venue";
 
 export default [
   attractionResolvers,

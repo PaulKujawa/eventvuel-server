@@ -9,7 +9,7 @@
     "node": "8"
   },
   "scripts": {
-    "start": "nodemon --ext js,ts -r tsconfig-paths/register -r dotenv/config index.js",
+    "start": "nodemon --ext js,ts -r dotenv/config --exec 'ts-node' src/main.ts",
     "now-start": "node -r tsconfig-paths/register index.js",
     "deploy": "now --public && now alias"
   },
@@ -23,7 +23,6 @@
     "graphql-tag": "^2.10.0",
     "nodemon": "^1.18.9",
     "ts-node": "^7.0.1",
-    "tsconfig-paths": "^3.7.0",
     "tslib": "^1.9.3",
     "typescript": "^3.1.6"
   },
