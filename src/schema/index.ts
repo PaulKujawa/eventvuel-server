@@ -1,7 +1,7 @@
-import attractionSchema from "@/schema/attraction";
-import categorySchema from "@/schema/category";
-import eventSchema from "@/schema/event";
-import venueSchema from "@/schema/venue";
+import attractionSchema from "./attraction";
+import categorySchema from "./category";
+import eventSchema from "./event";
+import venueSchema from "./venue";
 import gql from "graphql-tag";
 
 const rootSchema = gql`

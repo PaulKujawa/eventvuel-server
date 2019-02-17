@@ -1,5 +1,5 @@
 import { RESTDataSource, RequestOptions } from "apollo-datasource-rest";
-import { rootCategories as tmRootCategories } from "@/data-source/TM-config";
+import { rootCategories as tmRootCategories } from "./TM-config";
 
 type getEventListArgs = {
   categoryIds: string[];
