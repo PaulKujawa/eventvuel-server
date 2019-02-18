@@ -1,4 +1,4 @@
-import { ApolloServer, ServerInfo } from "apollo-server";
+import { ApolloServer } from "apollo-server-lambda";
 import TicketmasterApi from "./data-source/ticketmaster";
 import typeDefs from "./schema/index";
 import resolvers from "./resolver/index";
@@ -25,6 +25,8 @@ const server = new ApolloServer({
   introspection: true
 });
 
-server.listen({ port: 4000 }).then(({ url }: ServerInfo) => {
-  console.log(`🚀 Server ready at ${process.env.NOW_URL || url}`);
-});
+exports.handler = server.createHandler();
+
+// server.listen({ port: 4000 }).then(({ url }: ServerInfo) => {
+//   console.log(`🚀 Server ready at ${process.env.NOW_URL || url}`);
+// });
