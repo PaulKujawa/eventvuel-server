@@ -17,7 +17,7 @@ export default gql`
     categories: [Category!]!
     dayOfWeek: String
     domain: String!
-    doorOpeningDate: Date
+    doorOpeningDate: Date # seems like always null
     externalUrl: Boolean!
     eventDate: Date
     images: Images
@@ -25,7 +25,7 @@ export default gql`
     name: String!
     onSaleDate: Date!
     offSaleDate: Date!
-    priceRanges: PriceRanges!
+    priceRanges: PriceRanges
     properties: Properties!
     url: String!
     timezone: String
@@ -51,7 +51,7 @@ export default gql`
   }
 
   type TicketFee {
-    min: Int!
-    max: Int!
+    min: Float!
+    max: Float!
   }
 `;
