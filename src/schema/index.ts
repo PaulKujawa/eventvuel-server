@@ -10,8 +10,8 @@ const rootSchema = gql`
   }
 
   type Date {
-    format: String! # "datetime"
-    value: String! # "2018-11-15T20:00:00Z"
+    format: String! # "date | datetime"
+    value: String! # "2019-02-26 | 2018-11-15T20:00:00Z"
   }
 
   type Images {
