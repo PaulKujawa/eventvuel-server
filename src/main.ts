@@ -19,7 +19,9 @@ const server = new ApolloServer({
   context: {
     token: process.env.TICKETMASTER_API
   },
-
+  engine: {
+    apiKey: process.env.APOLLO_ENGINE
+  },
   // www.apollographql.com/docs/apollo-server/features/graphql-playground.html
   playground: true,
   introspection: true

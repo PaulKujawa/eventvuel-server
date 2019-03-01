@@ -1,7 +1,8 @@
 {
   "alias": ["eventvuel-server.now.sh"],
   "env": {
-    "TICKETMASTER_API": "@eventvuel-ticketmaster-token"
+    "TICKETMASTER_API": "@eventvuel-ticketmaster-token",
+    "APOLLO_ENGINE": "@eventvuel-apollo-engine"
   },
   "builds": [{ "src": "./src/**/*.ts", "use": "@now/node-server@canary" }],
   "routes": [{ "src": "/*", "dest": "/src/main.ts" }],
