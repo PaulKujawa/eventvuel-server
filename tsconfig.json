@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "ES6",
+    "target": "es2018",
     "module": "commonjs",
     "strict": true,
     "importHelpers": true,
@@ -9,8 +9,7 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "baseUrl": ".",
-    "skipLibCheck": true,
-    "lib": ["es6", "es7", "esnext.asynciterable"]
+    "skipLibCheck": true
   },
   "exclude": ["node_modules"]
 }
