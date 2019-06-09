@@ -51,7 +51,7 @@ export default gql`
   }
 
   type TicketFee {
-    min: Float!
-    max: Float!
+    min: Int!
+    max: Int!
   }
 `;

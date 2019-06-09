@@ -1,6 +1,12 @@
 import { IResolvers } from "graphql-tools";
 import { ResolverContext } from "../main";
 
+const convertPropsToCents = (fee: { [key: string]: number }) =>
+  Object.entries(fee).reduce(
+    (acc, [key, value]) => ({ ...acc, [key]: Math.trunc(value * 100) }),
+    {}
+  );
+
 const resolvers: IResolvers<any, ResolverContext> = {
   Event: {
     attractions: event => event.attractions || [],
@@ -19,8 +25,11 @@ const resolvers: IResolvers<any, ResolverContext> = {
       dataSources.ticketmasterApi.getEventList(args)
   },
   PriceRanges: {
-    excludingTicketFees: priceRanges => priceRanges.excluding_ticket_fees,
-    includingTicketFees: priceRanges => priceRanges.including_ticket_fees
+    excludingTicketFees: priceRanges =>
+      convertPropsToCents(priceRanges.excluding_ticket_fees),
+
+    includingTicketFees: priceRanges =>
+      convertPropsToCents(priceRanges.including_ticket_fees)
   }
 };
 

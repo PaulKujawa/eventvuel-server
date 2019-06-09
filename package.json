@@ -6,7 +6,7 @@
     "url": "git://github.com/PaulKujawa/eventvuel-server.git"
   },
   "engines": {
-    "node": "8"
+    "node": "10"
   },
   "scripts": {
     "start": "nodemon --ext js,ts -r dotenv/config --exec 'ts-node' src/main.ts"
